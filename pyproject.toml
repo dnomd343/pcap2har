@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pcap2har"
+version = "1.0.0"
+description = "Export decoded HTTP requests from packet captures"
+requires-python = ">=3.14"
+dependencies = [
+    "brotli>=1.2.1",
+    "harfile>=0.6.0",
+    "orjson>=3.13.0",
+    "pyshark==0.6",
+]
+
+[project.scripts]
+pcap2har = "pcap2har.__main__:main"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.414",
+    "ruff>=0.17.4",
+]
+
+[tool.hatch.build.targets]
+wheel.packages = ["src/pcap2har"]
+sdist.include = ["src/pcap2har", "pyproject.toml", "uv.lock"]
+
+[tool.ruff]
+line-length = 120
+lint.select = ["E4", "E7", "E9", "F", "I", "UP"]
+format.quote-style = "single"
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.14"
+typeCheckingMode = "standard"
